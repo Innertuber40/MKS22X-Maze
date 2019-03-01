@@ -47,7 +47,7 @@ public class Maze {
 				}
 			}
 		}
-		return solver(x, y, 0);
+		return solver(x, y, 1);
 	}
 	private int solver(int x, int y, int distance) {
 		if(animate){
@@ -55,6 +55,23 @@ public class Maze {
 			System.out.println(this);
 			wait(20);
 		}
+		if (maze[y][x] == 'E') {
+			return distance;
+		}
+		maze[y][x] = '@';
+		if (solver(x + 1, y, distance + 1) != -1) {
+			return solver(x + 1, y, distance + 1);
+		}
+		if (solver(x - 1, y, distance + 1) != -1) {
+			return solver(x - 1, y, distance + 1);
+		}
+		if (solver(x, y + 1, distance + 1) != -1) {
+			return solver(x, y + 1, distance + 1);
+		}
+		if (solver(x, y - 1, distance + 1) != -1) {
+			return solver(x, y - 1, distance + 1);
+		}
+		maze[y][x] = '.';
 		return -1;
 	}
 
