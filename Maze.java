@@ -35,6 +35,29 @@ public class Maze {
 		return returns;
 	}
 
+	public int solve() {
+		int x = -1;
+		int y = -1;
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+				if (maze[i][j] == 'S') {
+					maze[i][j] = ' ';
+					x = j;
+					y = i;
+				}
+			}
+		}
+		return solver(x, y, 0);
+	}
+	private int solver(int x, int y, int distance) {
+		if(animate){
+			clearTerminal();
+			System.out.println(this);
+			wait(20);
+		}
+		return -1;
+	}
+
 
 	private void wait(int millis){
 		try {
