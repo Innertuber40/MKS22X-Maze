@@ -15,6 +15,7 @@ public class Maze {
 			inf.nextLine();
 		}
 		maze = new char[height][length];
+		inf.close();
 		inf = new Scanner(myMaze);
 		for (int i = 0; i < height; i++) {
 			String thisLine = inf.nextLine();
@@ -23,6 +24,7 @@ public class Maze {
 			}
 		}
 		animate = false;
+		inf.close();
 	}
 	public String toString() {
 		String returns = "";
@@ -47,31 +49,40 @@ public class Maze {
 				}
 			}
 		}
-		return solver(x, y, 1);
+		return solver(x, y, 0);
 	}
 	private int solver(int x, int y, int distance) {
 		if(animate){
 			clearTerminal();
-			System.out.println(this);
+			char save = maze[y][x];
+            maze[y][x] = '\u2588';
+            System.out.println(this);
+			maze[y][x] = save;
 			wait(20);
 		}
 		if (maze[y][x] == 'E') {
 			return distance;
 		}
-		maze[y][x] = '@';
-		if (solver(x + 1, y, distance + 1) != -1) {
-			return solver(x + 1, y, distance + 1);
+		if (maze[y][x] == ' ') {
+			maze[y][x] = '@';
+			int right = solver(x + 1, y, distance + 1);
+			int left = solver(x - 1, y, distance + 1);
+			int down = solver(x, y + 1, distance + 1);
+			int up = solver(x, y - 1, distance + 1);
+			if (right != -1) {
+				return right;
+			}
+			if (left != -1) {
+				return left;
+			}
+			if (down != -1) {
+				return down;
+			}
+			if (up != -1) {
+				return up;
+			}
+			maze[y][x] = '.';
 		}
-		if (solver(x - 1, y, distance + 1) != -1) {
-			return solver(x - 1, y, distance + 1);
-		}
-		if (solver(x, y + 1, distance + 1) != -1) {
-			return solver(x, y + 1, distance + 1);
-		}
-		if (solver(x, y - 1, distance + 1) != -1) {
-			return solver(x, y - 1, distance + 1);
-		}
-		maze[y][x] = '.';
 		return -1;
 	}
 
