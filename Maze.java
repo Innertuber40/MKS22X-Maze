@@ -66,18 +66,18 @@ public class Maze {
 		if (maze[y][x] == ' ') {
 			maze[y][x] = '@';
 			int right = solver(x + 1, y, distance + 1);
-			int left = solver(x - 1, y, distance + 1);
-			int down = solver(x, y + 1, distance + 1);
-			int up = solver(x, y - 1, distance + 1);
 			if (right != -1) {
 				return right;
 			}
+			int left = solver(x - 1, y, distance + 1);
 			if (left != -1) {
 				return left;
 			}
+			int down = solver(x, y + 1, distance + 1);
 			if (down != -1) {
 				return down;
 			}
+			int up = solver(x, y - 1, distance + 1);
 			if (up != -1) {
 				return up;
 			}
