@@ -54,10 +54,7 @@ public class Maze {
 	private int solver(int x, int y, int distance) {
 		if(animate){
 			clearTerminal();
-			char save = maze[y][x];
-            maze[y][x] = '\u2588';
             System.out.println(this);
-			maze[y][x] = save;
 			wait(20);
 		}
 		if (maze[y][x] == 'E') {
